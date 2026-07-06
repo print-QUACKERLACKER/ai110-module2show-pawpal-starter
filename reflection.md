@@ -7,11 +7,13 @@
 - Briefly describe your initial UML design.
 - What classes did you include, and what responsibilities did you assign to each?
 
+Classes from the instructions such as pet, owner, task and schedule. I had Claude figure out the relationships as they all intertwine with each other. Schedule has time and management properties, pet holds mainly str info, owner does aswell and task holds str objectives.
+
 **b. Design changes**
 
 - Did your design change during implementation?
 - If yes, describe at least one change and why you made it.
-
+No changes were made.
 ---
 
 ## 2. Scheduling Logic and Tradeoffs
