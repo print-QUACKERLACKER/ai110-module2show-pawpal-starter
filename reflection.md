@@ -22,11 +22,13 @@ No changes were made.
 
 - What constraints does your scheduler consider (for example: time, priority, preferences)?
 - How did you decide which constraints mattered most?
-
+Priority and time were decided based on how many hours the user entered prior, added up. If the user adds multiple of the same activities with the same details, the priorities will be randomized.
 **b. Tradeoffs**
 
 - Describe one tradeoff your scheduler makes.
 - Why is that tradeoff reasonable for this scenario?
+
+One tradeoff is that the user cannot select when the schedule starts, this is reasonable for maintaining a proper routine for the dog to adjust to.
 
 ---
 
@@ -37,11 +39,13 @@ No changes were made.
 - How did you use AI tools during this project (for example: design brainstorming, debugging, refactoring)?
 - What kinds of prompts or questions were most helpful?
 
+I utilized snippets of questions from the read me document to help form my instructions when using Claude. I asked Claude to also help run the initial pawpal file and update it with changes.
+
 **b. Judgment and verification**
 
 - Describe one moment where you did not accept an AI suggestion as-is.
 - How did you evaluate or verify what the AI suggested?
-
+So far for me, I did not reject any suggestions as I was straightforward with my questions and instructions that Claude was able to generate what I had expected.
 ---
 
 ## 4. Testing and Verification
@@ -50,6 +54,8 @@ No changes were made.
 
 - What behaviors did you test?
 - Why were these tests important?
+
+I tested if the user could enter more time in activities than entered before when filling in basic info, and the program correctly displayed that there would be no time for the schedule. These tests are important to ensure that there is no point in the code where the program breaks and considers possibilities for new errors.
 
 **b. Confidence**
 

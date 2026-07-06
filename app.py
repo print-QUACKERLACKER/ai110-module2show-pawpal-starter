@@ -43,11 +43,16 @@ At minimum, your system should:
 st.divider()
 
 st.subheader("Quick Demo Inputs (UI only)")
-owner_name = st.text_input("Owner name", value="Jordan")
-pet_name = st.text_input("Pet name", value="Mochi")
+owner_name = st.text_input("Owner name", placeholder="Enter your name")
+pet_name = st.text_input("Pet name", placeholder="Enter your pet's name")
 species = st.selectbox("Species", ["dog", "cat", "other"])
 available_minutes = st.number_input(
-    "Time available today (minutes)", min_value=0, max_value=1440, value=120
+    "Time available today (minutes)",
+    min_value=15,
+    max_value=1440,
+    value=120,
+    step=5,
+    help="At least 15 minutes (shorter isn't a routine) and no more than 1440 (minutes in a day).",
 )
 
 st.markdown("### Tasks")
@@ -58,7 +63,7 @@ if "tasks" not in st.session_state:
 
 col1, col2, col3, col4 = st.columns(4)
 with col1:
-    task_title = st.text_input("Task title", value="Morning walk")
+    task_title = st.text_input("Task title", placeholder="e.g. Morning walk")
 with col2:
     category = st.selectbox("Category", [t.value for t in TaskType], index=0)
 with col3:
@@ -67,14 +72,17 @@ with col4:
     priority = st.selectbox("Priority", ["low", "medium", "high"], index=2)
 
 if st.button("Add task"):
-    st.session_state.tasks.append(
-        {
-            "title": task_title,
-            "category": category,
-            "duration_minutes": int(duration),
-            "priority": priority,
-        }
-    )
+    if not task_title.strip():
+        st.warning("Please enter a task title before adding.")
+    else:
+        st.session_state.tasks.append(
+            {
+                "title": task_title.strip(),
+                "category": category,
+                "duration_minutes": int(duration),
+                "priority": priority,
+            }
+        )
 
 if st.session_state.tasks:
     st.write("Current tasks:")

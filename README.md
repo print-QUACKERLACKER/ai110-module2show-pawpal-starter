@@ -60,15 +60,37 @@ Paste a sample of your app's CLI or Streamlit output here so a reader can see wh
 # Run the full test suite:
 pytest
 
-# Run with coverage:
-pytest --cov
+# Run with coverage (reports coverage for pawpal_system.py):
+pytest --cov=pawpal_system --cov-report=term-missing
 ```
 
 Sample test output:
 
 ```
-# Paste your pytest output here
+============================= test session starts ==============================
+platform darwin -- Python 3.13.5, pytest-9.1.1, pluggy-1.6.0
+collected 8 items
+
+test_pawpal_system.py ........                                           [100%]
+
+============================== 8 passed in 0.01s ===============================
 ```
+
+Sample coverage output:
+
+```
+================================ tests coverage ================================
+Name               Stmts   Miss  Cover   Missing
+------------------------------------------------
+pawpal_system.py      83      0   100%
+------------------------------------------------
+TOTAL                 83      0   100%
+============================== 8 passed in 0.02s ===============================
+```
+
+The suite covers the core scheduling behaviors: priority ordering, tie-breaking
+by duration, the time-budget cutoff (tasks that don't fit are skipped),
+sequential start/end times, and the plan explanation.
 
 ## 📐 Smarter Scheduling
 
@@ -85,10 +107,10 @@ Sample test output:
 
 Describe your app in numbered steps so a reader can follow along without watching a video:
 
-1. <!-- Describe this step -->
-2. <!-- Describe this step -->
-3. <!-- Describe this step -->
-4. <!-- Describe this step -->
-5. <!-- Add more steps as needed -->
+1. Enter basic info like name, pet name
+2. create a list of activities for your pet
+3. rank them low, med, high priority
+4. fill in the schedule builder
+5. click generate and edit if needed
 
 **Screenshot or video** *(optional)*: <!-- Insert a screenshot or link to a demo video here -->
