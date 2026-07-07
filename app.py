@@ -1,3 +1,5 @@
+from datetime import time
+
 import streamlit as st
 
 from pawpal_system import Owner, Pet, Priority, Scheduler, Task, TaskType
@@ -55,6 +57,17 @@ available_minutes = st.number_input(
     help="At least 15 minutes (shorter isn't a routine) and no more than 1440 (minutes in a day).",
 )
 
+st.markdown("### Routine Window")
+st.caption("Choose the time range your pet's routine should fit within.")
+win_col1, win_col2 = st.columns(2)
+with win_col1:
+    start_time = st.time_input("Start time", value=time(8, 0), step=900)
+with win_col2:
+    end_time = st.time_input("End time", value=time(20, 0), step=900)
+
+if end_time <= start_time:
+    st.warning("End time must be after start time.")
+
 st.markdown("### Tasks")
 st.caption("Add a few tasks. In your final version, these should feed into your scheduler.")
 
@@ -86,7 +99,20 @@ if st.button("Add task"):
 
 if st.session_state.tasks:
     st.write("Current tasks:")
-    st.table(st.session_state.tasks)
+    st.table(
+        [
+            {
+                "Title": t["title"],
+                "Category": t["category"].capitalize(),
+                "Duration": t["duration_minutes"],
+                "Priority": t["priority"].capitalize(),
+            }
+            for t in st.session_state.tasks
+        ]
+    )
+    if st.button("Reset all tasks"):
+        st.session_state.tasks = []
+        st.rerun()
 else:
     st.info("No tasks yet. Add one above.")
 
@@ -98,8 +124,15 @@ st.caption("This button should call your scheduling logic once you implement it.
 if st.button("Generate schedule"):
     if not st.session_state.tasks:
         st.info("Add at least one task before generating a schedule.")
+    elif end_time <= start_time:
+        st.error("Please set an end time that is after the start time.")
     else:
-        owner = Owner(name=owner_name, available_minutes=int(available_minutes))
+        owner = Owner(
+            name=owner_name,
+            available_minutes=int(available_minutes),
+            day_start=start_time,
+            day_end=end_time,
+        )
         pet = Pet(name=pet_name, species=species)
         tasks = [
             Task(

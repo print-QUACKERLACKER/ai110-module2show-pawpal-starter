@@ -22,13 +22,13 @@ No changes were made.
 
 - What constraints does your scheduler consider (for example: time, priority, preferences)?
 - How did you decide which constraints mattered most?
-Priority and time were decided based on how many hours the user entered prior, added up. If the user adds multiple of the same activities with the same details, the priorities will be randomized.
+Priority and time were decided based on how many hours the user entered prior, added up. If the user adds multiple of the same activities with the same details, the priorities will be randomized. Time stamps were scaled by x5 to ensure consistency. 
 **b. Tradeoffs**
 
 - Describe one tradeoff your scheduler makes.
 - Why is that tradeoff reasonable for this scenario?
 
-One tradeoff is that the user cannot select when the schedule starts, this is reasonable for maintaining a proper routine for the dog to adjust to.
+There is a limit to how much time the user can enter, this works in favor of producing accurate schedule planning for the user.
 
 ---
 
@@ -62,6 +62,8 @@ I tested if the user could enter more time in activities than entered before whe
 - How confident are you that your scheduler works correctly?
 - What edge cases would you test next if you had more time?
 
+I am fairly confident that my scheduler works correctly, as I approached making the design as if I were to actually use the program for my pet. I considered the elements I would want the code to have for maximum support for my pet's needs.
+
 ---
 
 ## 5. Reflection
@@ -70,10 +72,16 @@ I tested if the user could enter more time in activities than entered before whe
 
 - What part of this project are you most satisfied with?
 
+Navigating well with AI. Claude is able to produce quick and easy explanations to code generated and allows for me to see what has changed before and after.
+
 **b. What you would improve**
 
 - If you had another iteration, what would you improve or redesign?
 
+Improve the UI design so that not everything looks the same. It would be helpful if the schedule builder could be a different color to differentiate itself from the rest of the app.
+
 **c. Key takeaway**
 
 - What is one important thing you learned about designing systems or working with AI on this project?
+
+You must have the logic and understanding thought out before using AI. AI is extremely helpful and can help you code a big project in just a few minutes, but all that wont mean anything if you don't give the AI the correct instructions and accurately draw out relationships between every component.

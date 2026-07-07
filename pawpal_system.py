@@ -111,10 +111,11 @@ class Scheduler:
         plan = DailyPlan(plan_date=date.today())
         remaining = self.owner.available_minutes
         cursor = datetime.combine(plan.plan_date, self.owner.day_start)
+        day_end = datetime.combine(plan.plan_date, self.owner.day_end)
 
         for task in self.sort_tasks(tasks):
-            if self.fits(task, remaining):
-                end = cursor + timedelta(minutes=task.duration_minutes)
+            end = cursor + timedelta(minutes=task.duration_minutes)
+            if self.fits(task, remaining) and end <= day_end:
                 reason = (
                     f"chosen because priority is {task.priority.name.lower()} "
                     f"and it fits the remaining {remaining} min"

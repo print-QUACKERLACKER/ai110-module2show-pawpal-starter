@@ -81,6 +81,27 @@ def test_build_plan_assigns_sequential_start_times():
     assert plan.entries[1].end_time.strftime("%H:%M") == "08:40"
 
 
+def test_build_plan_skips_tasks_that_run_past_end_time():
+    from datetime import time
+
+    # Window is only 30 minutes (08:00-08:30) even though the minute budget is large.
+    owner = Owner(
+        name="Jordan",
+        available_minutes=600,
+        day_start=time(8, 0),
+        day_end=time(8, 30),
+    )
+    scheduler = Scheduler(owner)
+    tasks = [
+        make_task("walk", 20, Priority.HIGH),
+        make_task("grooming", 20, Priority.MEDIUM),  # would end at 08:40, past window
+    ]
+    plan = scheduler.build_plan(Pet(name="Mochi", species="dog"), tasks)
+
+    assert [e.task.title for e in plan.entries] == ["walk"]
+    assert [t.title for t in plan.skipped] == ["grooming"]
+
+
 def test_build_plan_with_no_tasks_is_empty():
     scheduler = Scheduler(Owner(name="Jordan"))
     plan = scheduler.build_plan(Pet(name="Mochi", species="dog"), [])

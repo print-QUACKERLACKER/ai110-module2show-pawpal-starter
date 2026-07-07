@@ -96,7 +96,7 @@ sequential start/end times, and the plan explanation.
 
 > Fill in once you've implemented scheduling logic.
 
-| Feature | Method(s) | Notes |
+| start/ end| action | time / priority |
 |---------|-----------|-------|
 | Task sorting | | e.g., by priority, duration |
 | Filtering | | e.g., skip tasks if time runs out |
